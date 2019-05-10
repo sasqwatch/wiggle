@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{{ doc.path }} - Wiggle{% endblock %}
+{% load path %}
+
+{% block main %}
+
+<main role="main" class="doc-detail">
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-4">{{ doc.path | basename }}</h1>
+      <p class="text-muted wrap">
+        {% if doc.apple_signed %}
+          <span class="badge badge-success">Apple Signed</span>
+        {% elif doc.codesign %}
+          <span class="badge badge-primary">Signed</span>
+        {% endif %}
+        {% if doc.flags.nx %}<span class="badge badge-success">NX</span>{% endif %}
+        {% if doc.flags.pie %}<span class="badge badge-success">PIE</span>{% endif %}
+      <small>{{ doc.path }}</small></p>
+    </div>
+  </div>
+    
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="content">
+          {% include "details/segments.html" %}
+          {% include "details/libraries.html" %}
+          {% include "details/symbols.html" %}
+          {% include "details/misc.html" %}
+        </div>
+      </div>
+      
+      <div class="col-md-3">
+        <div id="list-example" class="list-group sticky-nav">
+          <a class="list-group-item list-group-item-action" href="#segments">Segments</a>
+          <a class="list-group-item list-group-item-action" href="#libraries">Libraries</a>
+          <a class="list-group-item list-group-item-action" href="#imports">Imports</a>
+          <a class="list-group-item list-group-item-action" href="#exports">Exports</a>
+          <a class="list-group-item list-group-item-action" href="#codesign">Code Signature</a>
+          <a class="list-group-item list-group-item-action" href="#entitlement">Entitlement</a>
+          <a class="list-group-item list-group-item-action" href="#classdump">classdump</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+{% endblock %}

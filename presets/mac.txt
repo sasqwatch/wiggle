@@ -1,0 +1,16 @@
+/System/Library/Frameworks
+/System/Library/PrivateFrameworks
+/System/Library/Components
+/System/Library/CoreServices
+/System/Library/CryptoTokenKit
+
+# media io
+/Library/CoreMediaIO/Plug-Ins
+
+/Library/Developer/PrivateFrameworks
+
+/usr/lib/
+/usr/bin/
+/usr/libexec/
+/usr/sbin/
+/sbin

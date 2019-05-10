@@ -1,0 +1,45 @@
+<h3 class="display-4" id="imports">Imports</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Demangled</th>
+      <th scope="col">Flag</th>
+      <th scope="col">Bind</th>
+      <th scope="col">Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for imp in doc.imports %}
+    <tr>
+      <td><span class="wrap"><a href="{% url 'search' %}?q=import:{{ imp.name }}">{{ imp.name }}</a></span></td>
+      <td><span class="wrap">{{ imp.demname | default:'' }}</span></td>
+      <td>{{ imp.flagname }}</td>
+      <td>{{ imp.bind }}</td>
+      <td>{{ imp.type }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h3 class="display-4" id="exports">Exports</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Bind</th>
+      <th scope="col">Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for exp in doc.exports %}
+    <tr>
+      <td><span class="wrap">{{ exp.name }}</span></td>
+      <td>{{ exp.bind }}</td>
+      <td>{{ exp.type }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

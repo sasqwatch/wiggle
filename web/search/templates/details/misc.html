@@ -1,0 +1,30 @@
+{% if doc.rpaths %}
+  <h3 class="display-4" id="rpath">RPath</h3>
+  {% for rpath in doc.rpaths %}
+    {{ rpath }}
+  {% endfor %}
+{% endif %}
+
+<h3 class="display-4" id="codesign">CodeSign</h3>
+{% if doc.codesign %}
+  <pre>{{ doc.codesign }}</pre>
+{% else %}
+  <p>This binary is not code signed</p>
+{% endif %}
+
+<h3 class="display-4" id="entitlement">Entitlement</h3>
+{% if doc.ent %}
+  <pre>{{ doc.ent_str | default:'' }}</pre>
+{% else %}
+  <p>This binary is not entitled</p>
+{% endif %}
+
+<h3 class="display-4" id="info_plist">Info.plist</h3>
+{% if doc.info_plist %}
+  <pre>{{ doc.info_plist_str | default:'' }}</pre>
+{% else %}
+  <p>This binary is not entitled</p>
+{% endif %}
+
+<h3 class="display-4" id="classdump">classdump</h3>
+<pre>{{ doc.classdump }}</pre>

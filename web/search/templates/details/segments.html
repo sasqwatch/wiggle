@@ -1,0 +1,24 @@
+<h3 class="display-4" id="segments">Segments</h3>
+
+{% load strutil %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Flags</th>
+      <th scope="col">Addr</th>
+      <th scope="col">Size</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for segment in doc.segments %}
+    <tr>
+      <td><span class="wrap"><a href="{% url 'search' %}?q=segment:{{ segment.name | segment_name }}">{{ segment.name }}</a></span></td>
+      <td><code>{{ segment.flags }}</code></td>
+      <td><code>{{ segment.vaddr | hexnum }}</code></td>
+      <td>{{ segment.size }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

@@ -1,0 +1,4 @@
+Django==2.2
+elasticsearch==7.0.0
+elasticsearch-dsl==7.0.0
+coloredlogs==10.0

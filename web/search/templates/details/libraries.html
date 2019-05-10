@@ -1,0 +1,6 @@
+<h3 class="display-4" id="libraries">Libraries</h3>
+<ul class="list-unstyled">
+  {% for lib in doc.libraries %}
+    <li><a href="{% url 'search' %}?q=lib:{{ lib }}" class="wrap">{{ lib }}</a></li>
+  {% endfor %}
+</ul>

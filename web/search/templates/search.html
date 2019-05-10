@@ -1,0 +1,129 @@
+{% extends "base.html" %} 
+
+{% block title %}{{ keyword }} - Wiggle{% endblock %}
+
+{% load path %}
+
+{% block main %}
+
+<main role="main">
+  <div class="container-fluid">
+    <div class="row header">
+      <div class="offset-md-1 col-sm-12 col-md-8 col-lg-6">
+        <form class="mt-4 mb-4">
+          <div class="input-group">
+            <input class="form-control" type="text" placeholder="Serach here" name="q" value="{{ keyword }}">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="submit">Wiggle Wiggle</button>
+            </div>
+          </div>
+          <div class="text-muted">
+            <small>took <em>{{ took }}</em>s, found <em>{{ response.hits.total.value }}</em></small>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="offset-md-1 col-sm-12 col-md-8">
+        <ul class="results">
+          {% for item in response %}
+          <li>
+            <h3 class="name">
+              {% if item.apple %}
+                <span class="badge badge-success" title="Apple Signed">Apple</span>
+              {% elif item.signed %}
+                <span class="badge badge-primary" title="Valid Signed">Signed</span>
+              {% endif %}
+
+              {% if item.lv %}
+                <span class="badge badge-info" title="Library Validation">LV</span>
+              {% endif %}
+              <a target="_blank" href="{% url 'detail' index=item.meta.index doc_id=item.meta.id %}">{{ item.path | basename }}</a>
+            </h3>
+            <p class="path">{{ item.path }}</p>
+
+            {% if item.meta.highlight.strings %}
+            <p>
+              <span class="badge badge-secondary">Strings</span>
+              <code class="strings">
+                {% for fragment in item.meta.highlight.strings %}
+                  {{ fragment | safe }}<br>
+                {% endfor %}
+              </code>
+            </p>
+            {% endif %}
+            
+            {% if item.meta.highlight.entitlement %}
+            <p>
+              <span class="badge badge-secondary">Entitlement</span>
+              <code class="strings">
+                {% for fragment in item.meta.highlight.entitlement %}
+                  {{ fragment | safe }}<br>
+                {% endfor %}
+              </code>
+            </p>
+            {% endif %}
+            
+            {% if item.meta.highlight.codesign %}
+            <p>
+              <span class="badge badge-secondary">Code Signature</span>
+              <code class="strings">
+                {% for fragment in item.meta.highlight.entitlement %}
+                  {{ fragment | safe }}<br>
+                {% endfor %}
+              </code>
+            </p>
+            {% endif %}
+
+            {% if show_fields.codesign %}
+              <pre>{{ item.codesign }}</pre>
+            {% endif %}
+
+
+            {% if item.ent_keys %}
+            <p>
+              <span class="badge badge-secondary">Entitlement Keys</span>
+              {% for key in item.ent_keys %}    
+                <a href="?q=entitlement:{{ key }}" class="badge badge-pill badge-light">{{ key }}</a>
+              {% endfor %}
+            </p>
+            {% endif %}
+
+            {% if item.cs_flags_str %}
+            <p>
+              <span class="badge badge-secondary">CodeSign Flags</span>
+              {% for key in item.cs_flags_str %}    
+                <a href="?q=csflag:{{ key }}" class="badge badge-pill badge-light">{{ key }}</a>
+              {% endfor %}
+            </p>
+            {% endif %}
+
+          </li>
+          {% endfor %}
+        </ul>
+
+        <nav aria-label="...">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="?page={{ p }}&amp;q={{ keyword }}">&leftleftarrows;</a></li>
+            {% for p in paginator %}
+            <li class="page-item {% if p == page %} active{% endif %}">
+              <a class="page-link" href="?page={{ p }}&amp;q={{ keyword }}">{{ p }}</a>
+            </li>
+            {% endfor %}
+            <li class="page-item"><a class="page-link" href="?page={{ max_page }}&amp;q={{ keyword }}">&rightrightarrows;</a></li>
+          </ul>
+          </nav>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="offset-md-1 col-12">
+        <pre class="text-muted">Parsed search terms: {{ parsed }}</pre>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+{% endblock %}

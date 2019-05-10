@@ -1,0 +1,6 @@
+server:
+  name: 'dashboard'
+  host: 'dashboard'
+
+elasticsearch:
+  url: 'http://es:9200'

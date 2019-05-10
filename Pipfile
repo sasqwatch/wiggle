@@ -1,0 +1,20 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[[source]]
+url = "https://lief-project.github.io/packages"
+verify_ssl = true
+name = "lief"
+
+[dev-packages]
+
+[packages]
+lief = {index = "lief"}
+django = "*"
+coloredlogs = "*"
+elasticsearch-dsl = "*"
+
+[requires]
+python_version = "3.7"

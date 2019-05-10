@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'bs4/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'styles/main.css' %}">
+  <title>{% block title %}Wiggle Wiggle Wiggle{% endblock %}</title>
+</head>
+<body>
+  <div class="navbar navbar-dark bg-dark box-shadow">
+    <div class="container-fluid d-flex justify-content-between">
+      <a href="/" class="navbar-brand mr-0 mr-md-2">Wiggle!</a>
+      <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'entitlements' %}">Entitlements</a>
+          </li>
+        </ul>  
+    </div>
+  </div>
+
+  {% block main %}{% endblock %}
+
+  <footer class="text-muted">
+    <div class="container-fluid p-3 p-md-5">
+      <p class="text-center"><small>&copy;2018 AntFinancial LightYear Security Labs</small></p>
+    </div>
+  </footer>
+
+  <script src="{% static 'scripts/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'bs4/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

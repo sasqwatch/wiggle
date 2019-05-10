@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<main role="main">
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Wiggle!</h1>
+      <p class="lead text-muted">Now make it clap</p>
+
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <form class="col col-lg-8 col-sm-12" action="/search">
+            <div class="input-group">
+              <input class="form-control" type="text" placeholder="Search binaries" name="q">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Search</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="row justify-content-md-center">
+        <div class="content">
+          <small class="text-muted ">Try these:</small>
+          {% for keyword in suggested %}
+            <a class="badge badge-light" href="{% url 'search' %}?q={{ keyword }}">{{ keyword }}</a> 
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="row">
+      <div class="col">       
+        <h3>Code Signature Flags</h3>
+        <a href="{% url 'search' %}?q=csflag:kSecCodeSignatureHost">kSecCodeSignatureHost</a>
+        <a href="{% url 'search' %}?q=csflag:kSecCodeSignatureAdhoc">kSecCodeSignatureAdhoc</a>
+        <a href="{% url 'search' %}?q=csflag:kSecCodeSignatureForceHard">kSecCodeSignatureForceHard</a>
+        <a href="{% url 'search' %}?q=csflag:kSecCodeSignatureForceKill">kSecCodeSignatureForceKill</a>
+        <a href="{% url 'search' %}?q=csflag:kSecCodeSignatureForceExpiration">kSecCodeSignatureForceExpiration</a>
+        <a href="{% url 'search' %}?q=csflag:kSecCodeSignatureRestrict">kSecCodeSignatureRestrict</a>
+        <a href="{% url 'search' %}?q=csflag:kSecCodeSignatureEnforcement">kSecCodeSignatureEnforcement</a>
+        <a href="{% url 'search' %}?q=csflag:kSecCodeSignatureLibraryValidation">kSecCodeSignatureLibraryValidation</a>        
+      </div>
+
+      <div class="col">
+        <h3>Segment Name</h3>
+        <a href="{% url 'search' %}?q=segment:__objc_protolist">__objc_protolist</a>
+        <a href="{% url 'search' %}?q=segment:__objc_protorefs">__objc_protorefs</a>
+        <a href="{% url 'search' %}?q=segment:__objc_classlist">__objc_classlist</a>
+        <a href="{% url 'search' %}?q=segment:__crash_info">__crash_info</a>
+        <a href="{% url 'search' %}?q=segment:__oslogstring">__oslogstring</a>
+        <a href="{% url 'search' %}?q=segment:__info_plist">__info_plist</a>
+        <a href="{% url 'search' %}?q=segment:__gcc_except_tab">__gcc_except_tab</a>
+        <a href="{% url 'search' %}?q=segment:__launchd">__launchd</a>
+        <a href="{% url 'search' %}?q=segment:__dof_launchd">__dof_launchd</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+version: '3'
+services:
+  es:
+    build: ./docker/es
+    volumes:
+      - ./data/es:/usr/share/elasticsearch/data
+    restart: 'always'
+    ports:
+      - 127.0.0.1:9200:9200
+    environment:
+      ES_JAVA_OPTS: "-Xms750m -Xmx1900m"
+
+  # dashboard:
+  #   image: kibana
+  #   volumes:
+  #     - ./kibana.yml:/usr/share/kibana/config/kibana.yml
+  #   restart: 'always'
+  #   ports:
+  #     - 127.0.0.1:5601:5601
+
+  web:
+    build: ./docker/web
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./web:/code
+      - ./agent:/agent
+    ports:
+      - 127.0.0.1:8000:8000
+    depends_on:
+      - es
+
+  # graph:
+  #   image: neo4j:latest
+  #   ports:
+  #     - 127.0.0.1:17474:7474
+  #     - 127.0.0.1:7687:7687
+  #   volumes:
+  #     - ./data/neo4j:/data/dbms

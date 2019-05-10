@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Entitlements - Wiggle{% endblock %}
+{% load path %}
+
+{% block main %}
+<main role="main" class="doc-detail">
+    <div class="jumbotron">
+        <div class="container">
+            <h1>CC's Entitlement Databse</h1>
+            <p class="text-muted">Todo: d3.js visualize</p>
+            <!-- {{ entitlements }} -->
+
+            <ul class="list-unstyled">
+            {% for item in entitlements.aggregations.all_entitlement_names.buckets %}
+                <li>
+                    <span class="badge badge-light">{{ item.doc_count }}</span>
+                    <a href="{% url 'search' %}?q=ent:{{ item.key }}">{{ item.key }}</a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+</main>
+{% endblock %}
